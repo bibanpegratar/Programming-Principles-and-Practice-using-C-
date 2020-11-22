@@ -45,7 +45,7 @@ void calculate(Token_stream& ts, Symbol_table& st)
 double statement(Token_stream& ts, Symbol_table& st)
 {
 	Token t = ts.get();
-	switch (t.type)
+	switch (t.type)  //HELLO, FRIEND.
 	{
 	case let:
 		return declaration(ts, st);

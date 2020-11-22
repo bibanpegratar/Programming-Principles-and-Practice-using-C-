@@ -32,7 +32,7 @@ using namespace std;
 int main()
 {
     int n, nr;
-    vector <int> aproape_prime ;
+    vector <int> aproape_prime e;
     cin >> n;
     while(nr > 0)
     {

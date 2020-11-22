@@ -1,0 +1,1 @@
+To use the sort function on a vector of user-defined type-objects, overload the comparison (<) operator for that type.

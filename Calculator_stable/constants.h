@@ -7,7 +7,7 @@ namespace Constants
 	const char sroot = 'S';
 	const char let = 'L';       //represents the "let" term in declaration()
 	const char name = 'a';      //name token
-	const char power = 'P';
+	const char power = 'P';   
 	const char vconst = 'C';
 
 	const std::string decl_key = "let";   //declaration keyword

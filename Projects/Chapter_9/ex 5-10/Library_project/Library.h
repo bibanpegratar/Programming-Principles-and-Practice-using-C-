@@ -2,16 +2,20 @@
 #include "Book.h"
 #include <vector>
 
+
+
 namespace Library_f
 {
-    struct Trasnsaction
+    namespace Transaction
     {
-        Book::Book book;
-        Patron::Patron patron;
-        Chrono::Date date;
-    };
+        struct Trasnsaction
+        {
+            Book::Book book;
+            Patron::Patron patron;
+            Chrono::Date date;
+        };
 
-    static std::vector<Trasnsaction> transactions;
+    } // namespace Transaction
 
     class Library
     {
@@ -21,8 +25,8 @@ namespace Library_f
         void check_out(std::string ISBN);
         bool duplicate_ISBN(std::string ISBN);
 
-        Patron::Patron& patron(std::string name);
-        Book::Book& book(std::string ISBN);
+        Patron::Patron &patron(std::string name);
+        Book::Book &book(std::string ISBN);
 
         //perhaps add functions to print the vector, get a book and a patron from the book etc.
         //Won't waste time on this because it can be implemented quite easily
@@ -32,5 +36,9 @@ namespace Library_f
         std::vector<Book::Book> books;
         std::vector<Patron::Patron> patrons;
     };
+        
 
 } // namespace Library_f
+
+static Library_f::Library lib;
+static std::vector<Library_f::Transaction::Trasnsaction> transactions;

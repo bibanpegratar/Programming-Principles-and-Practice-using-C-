@@ -4,7 +4,6 @@ using namespace Library_f::Book;
 using namespace Library_f::Patron;
 
 const char continue_key = '~';
-Library_f::Library lib;
 void add_data();
 void do_stuff();
 
@@ -19,7 +18,6 @@ int main()
     {
         do_stuff();
     }
-
 
 }
 

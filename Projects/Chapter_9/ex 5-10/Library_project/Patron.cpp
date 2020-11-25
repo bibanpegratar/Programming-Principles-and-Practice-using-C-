@@ -8,7 +8,7 @@ namespace Library_f::Patron
     };
 
     Patron::Patron(std::string name, std::string card_number)
-        :name_p{name}, card_number_p{card_number}
+        :name_p{name}, card_number_p{card_number}, fees_p{0}
     {
     };
 
@@ -17,9 +17,12 @@ namespace Library_f::Patron
         fees_p = fee;
     }
 
-    /*std::ostream &operator<< (std::ostream& out, const Patron& patron)
+    std::ostream& operator<<(std::ostream& out, const Patron& p)
     {
-        out << 'p';
-        return oss;
-    }*/
+        out << "Name: " << p.name() << "\n"
+            << "Card number: " << p.card_number() << "\n"
+            << "Fees: " << p.fees() << "\n";
+
+        return out;
+    }
 } // namespace Library::Patron

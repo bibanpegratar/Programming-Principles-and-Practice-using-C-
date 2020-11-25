@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 namespace Library_f::Patron
 {
@@ -9,7 +10,7 @@ namespace Library_f::Patron
         std::string card_number() const { return card_number_p; }
         bool has_fees() const { return fees_p != 0; }
         int fees() const { return fees_p; }
-        void set_fee(int fee);
+        void set_fee(int fee); // will SET a fee, not add to the existing one
         
 
         Patron(std::string name, std::string card_number, int fee);
@@ -22,6 +23,7 @@ namespace Library_f::Patron
     };
 
     bool is_valid(std::string name, std::string card_number);
+    std::ostream& operator<<(std::ostream& out, const Patron& p);
 
     //std::ostream& operator<< (std::ostream& os, const Patron& p);
 }

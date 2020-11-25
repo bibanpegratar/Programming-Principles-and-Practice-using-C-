@@ -3,34 +3,66 @@
 using namespace Library_f::Book;
 using namespace Library_f::Patron;
 
+const char continue_key = '~';
+Library_f::Library lib;
+void add_data();
+void do_stuff();
+
 //File that just tests some functions and stuff
 
-Library_f::Library lib;
-
 int main()
-try
-{
-    Book book_1 = {"0357108294", "Warrior Cats : Ice and Fire", "Codrin Bradea - Satana", Genre::nonfiction, {10, Chrono::Month::jan, 2020}};
-    Book book_2 = {"007462542X", "Warrior Cats : Ice and Fire", "Codrin Bradea - Satana", Genre::nonfiction, {10, Chrono::Month::jan, 2020}};
 
-    // Book book_2 = {isbn_2, "Warrior Cats : Vanzatorii de Lebenita", "Codrin Bradea - Satana", {11,Chrono::Month::feb, 1999}};
+{
+    add_data();
+    int x;
+    while(std::cin >> x)
+    {
+        do_stuff();
+    }
+
+
+}
+
+
+void add_data()
+{
+    Book book_1 = {"0062641549", "Finn & Jake", "Rebecca Sugar", Genre::fiction, {10,Chrono::Month::aug, 2020}};
+    Book book_2 = {"0062641522", "Harry Potter : The Prizoneer of Azkaban", "J.K.Rowling", Genre::fiction, {11,Chrono::Month::feb, 1999}};
+    Book book_3 = {"6064400722", "Emotional Inteligence", "Daniel Goleman", Genre::nonfiction, {11,Chrono::Month::jan, 2010}};
+
+    Patron p_1 = {"Alex Ivan", "1231312"};
+    Patron p_2 = {"Ionel Marcel", "69696969"};
+    Patron p_3 = {"Sandu Ceorba", "420420420"};
 
     lib.add_book(book_1);
     lib.add_book(book_2);
+    lib.add_book(book_3);
 
-    //std::cout << lib.books[0] << ',' << lib.books[0].is_checked_out()<< "\n";
-    //std::cout << lib.books[1] << ',' << lib.books[1].is_checked_out()<< "\n";
+    lib.add_patron(p_1);
+    lib.add_patron(p_2);
+    lib.add_patron(p_3);
+}
 
-    //lib.books[0].check_out();
+void do_stuff()
+try{
+    std::cout << lib.book("0062641549") << "\n";
+    //std::cout << lib.book("3414141443") << "\n";
 
-    //std::cout << lib.books[0] << ',' << lib.books[0].is_checked_out()<< "\n";
-    //std::cout << lib.books[1] << ',' << lib.books[1].is_checked_out()<< "\n";
+    std::cout << lib.patron("Alex Ivan");
+    lib.patron("Alex Ivan").set_fee(20);
+    lib.book("6064400722").check_out();
 
-
-    return 0;
+    std::cout << lib.book("6064400722") << "\n";
+    std::cout << lib.patron("Alex Ivan");
+    
+    std::cin.clear();
 }
 catch (Library_f::Exception::Exception &e)
 {
+    char c;
     std::cerr << "error: " << e.what() << "\n";
-    return 1;
+    std::cout << "Enter " << continue_key << " to continue.\n";
+    while (std::cin >> c && c != '~') {};
+    std::cin.clear();
+    do_stuff();
 }

@@ -11,7 +11,7 @@ namespace Library_f::Book
         checked_out_p{checked_out}
   {
     if (!is_valid(ISBN))
-      throw Exception::Exception("ISBN not valid");
+      throw Exception::Exception("Book(constructor): ISBN not valid");
   }
 
   Book::Book(std::string ISBN, std::string title, std::string author, Genre genre, Chrono::Date copyright)
@@ -23,7 +23,7 @@ namespace Library_f::Book
         checked_out_p{false} // initialized book is, by default, checked in
   {
     if (!is_valid(ISBN))
-      throw Exception::Exception("ISBN not valid");
+      throw Exception::Exception("Book(constructor): ISBN not valid");
   }
 
   bool is_valid(const std::string &ISBN)

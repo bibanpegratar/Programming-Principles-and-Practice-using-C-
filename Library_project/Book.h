@@ -1,14 +1,9 @@
 #include <iostream>
-#include <vector>
 #include <string>
 #include "Chrono.h"
 
 namespace Library_f::Book
 {
-    class Invalid
-    {
-    };
-
     enum class Genre
     {
         fiction, nonfiction, periodical, biography, children, other
@@ -17,6 +12,7 @@ namespace Library_f::Book
     class Book
     {
     public:
+        //inline functions for returning the private members
         std::string ISBN() const { return ISBN_p; }
         std::string title() const { return title_p; }
         std::string author() const { return author_p; }
@@ -27,6 +23,7 @@ namespace Library_f::Book
         void check_in() { checked_out_p = false; }
         void check_out() { checked_out_p = true; }
 
+        //constructors
         Book(std::string ISBN, std::string title, std::string author, Genre genre, Chrono::Date copyright, bool checked_out);
         Book(std::string ISBN, std::string title, std::string author, Genre genre, Chrono::Date copyright);
 
@@ -39,7 +36,7 @@ namespace Library_f::Book
         bool checked_out_p;
     };
 
-    bool is_valid(const std::string &ISBN, const std::string &author);
+    bool is_valid(const std::string &ISBN);
     bool operator==(const Book &a, const Book &b); //compare ISBN numbers
     bool operator!=(const Book &a, const Book &b); //compare ISBN numbers
     bool is_isbn(const std::string &ISBN);

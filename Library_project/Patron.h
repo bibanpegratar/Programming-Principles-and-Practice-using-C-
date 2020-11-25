@@ -10,6 +10,7 @@ namespace Library_f::Patron
         bool has_fees() const { return fees_p != 0; }
         int fees() const { return fees_p; }
         void set_fee(int fee);
+        
 
         Patron(std::string name, std::string card_number, int fee);
         Patron(std::string name, std::string card_number);  //initializer with fee = 0

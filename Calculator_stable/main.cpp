@@ -13,6 +13,7 @@ void initialize_custom_variables();
 
 int main()
 try{
+	intro_message(cout);
 	initialize_custom_variables();
 	string choice;
 	cout << "Choose where you want to give input from - keyboard or file:\n";
@@ -36,8 +37,6 @@ try{
 	else if (choice == "keyboard")
 	{
 		Token_stream ts(cin); // console input
-		
-		intro_message(cout);
 		calculate(ts, st, cout); // console output
 	}
 	else throw runtime_error("invalid choice");

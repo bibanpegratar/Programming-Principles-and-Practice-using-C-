@@ -17,7 +17,7 @@ void Symbol_table::set_value(string s, double n)
 	{
 		if (v.name == s && v.isConst == false)
 		{
-			v.value = n;
+			v.value = n; //ARE YOU A ONE OR A ZERO?
 			return;
 		}
 		else if (v.name == s && v.isConst) error("set_value: cannot change value of a constant variable");
@@ -41,8 +41,8 @@ double Symbol_table::define_variable(string var, double val, bool isConst)
 	return val;
 }
 
-void Symbol_table::show_variables()
+void Symbol_table::show_variables(ostream& ostr)
 {
 	for (int i = 0; i < var_table.size(); ++i)
-		cout << var_table[i].name << " = " << var_table[i].value << "\n";
+		ostr << var_table[i].name << " = " << var_table[i].value << "\n";
 }

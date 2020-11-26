@@ -3,15 +3,23 @@
 #include "variable.h"
 #include "calculator.h"
 
-Token_stream ts;
+//NOTE: The Token_stream works with files, but not fully:
+	//it reads from them, does the correct calculations, but then crashes with a a core dump error, double free or corruption (out)
+ifstream istr;
+ofstream ostr;
+
+Token_stream ts(istr);
 Symbol_table st;
 void initialize_custom_variables();
 
 int main()
 {
+	istr.open("input.txt");
+	ostr.open("output.txt");
 	initialize_custom_variables();
-	intro_message();
-	calculate(ts, st);
+	intro_message(cout);
+	calculate(ts, st, ostr);
+	istr.close();
 	return 0;
 }
 

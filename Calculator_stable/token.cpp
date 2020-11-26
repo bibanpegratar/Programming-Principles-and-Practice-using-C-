@@ -3,7 +3,8 @@
 #include "constants.h"
 
 using namespace Constants;
-Token_stream::Token_stream() :isFull(false), buffer(0) {}
+Token_stream::Token_stream(istream& istr)
+	 : isFull{false}, buffer{0}, istr_p{istr} {};
 
 Token Token_stream::get()
 {
@@ -15,7 +16,7 @@ Token Token_stream::get()
 	else
 	{
 		char ch;
-		cin >> ch;
+		istr_p >> ch;
 		switch (ch)
 		{
 		case '+':
@@ -38,9 +39,9 @@ Token Token_stream::get()
 
 		case '0': case '1': case '2': case '3': case '4':
 		case '5': case '6': case '7': case '8': case '9':
-			cin.putback(ch);
+			istr_p.putback(ch);
 			double d;
-			cin >> d;
+			istr_p >> d;
 			return Token(number, d);
 
 		default:
@@ -49,9 +50,9 @@ Token Token_stream::get()
 			{
 				string s;
 				s += ch;
-				while (cin.get(ch) && (isalpha(ch) || isdigit(ch) || ch == '_')) s += ch;
+				while (istr_p.get(ch) && (isalpha(ch) || isdigit(ch) || ch == '_')) s += ch;
 
-				cin.putback(ch);
+				istr_p.putback(ch);
 
 				if (s == decl_key) return Token{ let };
 				if (s == sroot_key) return Token{ sroot };
@@ -85,6 +86,6 @@ void Token_stream::ignore(char c) // c represents the type for the Token
 
 	//search input
 	char ch = 0;
-	while (cin >> ch) if (ch == c) return;
+	while (istr_p >> ch) if (ch == c) return;
 }
 //-------------------------------------------------------------------------------

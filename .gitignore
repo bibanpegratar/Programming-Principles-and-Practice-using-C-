@@ -32,3 +32,5 @@ Testing
 *.exe
 *.out
 *.app
+
+.vscode

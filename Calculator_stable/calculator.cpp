@@ -7,21 +7,21 @@
 //Grammar implementation---------------------------------------------------------
 using namespace Constants;
 
-void calculate(Token_stream& ts, Symbol_table& st)
+void calculate(Token_stream& ts, Symbol_table& st, ostream& ostr)
 {
 	//double val;
-	while (cin)
+	while (true)
 		try {
-		cout << prompt;
+		//ostr << prompt;
 		Token t = ts.get();
 
 		while (t.type == print_key) t = ts.get();      // "eat" print_key characters
 		if (t.type == quit_key) return;                //NOTE : In void functions, you can do an empty return. 
-		if (t.type == help_key) intro_message();
-		if (t.type == show_vars) st.show_variables();
+		if (t.type == help_key) intro_message(ostr);
+		if (t.type == show_vars) st.show_variables(ostr);
 		else {
 			ts.putback(t);
-			cout << result << statement(ts,st) << "\n\n";
+			ostr << result << statement(ts, st) << "\n\n";
 		}
 
 		//ts.putback(t);
@@ -33,7 +33,7 @@ void calculate(Token_stream& ts, Symbol_table& st)
 		cout.clear();
 		cerr << "error: " << e.what() << "\n";
 		cerr << "Enter " << recover << " to continue.\n";
-		cleanup(ts);
+		cleanup (ts);
 	}
 	catch (...)
 	{
@@ -52,7 +52,7 @@ double statement(Token_stream& ts, Symbol_table& st)
 
 	default:
 		ts.putback(t);
-		return expression(ts,st);
+		return expression(ts, st);
 	}
 }
 
@@ -78,7 +78,7 @@ double declaration(Token_stream& ts, Symbol_table& st)
 	Token t2 = ts.get();
 	if (t2.type != '=') error("= missing in declaration of ", var_name);
 
-	double d = expression(ts,st);
+	double d = expression(ts, st);
 	st.define_variable(var_name, d, isConst);
 	return d;
 }
@@ -88,7 +88,7 @@ double square_root(Token_stream& ts, Symbol_table& st)
 	// get a token, assuming that we've already used the string "sqrt" in get()
 	Token t = ts.get();
 	if (t.type != '(') error("sqrt: '(' expected");
-	double e = expression(ts,st);
+	double e = expression(ts, st);
 	if (e < 0) error("sqrt: cannot calculate square root of negative number");
 
 	t = ts.get();
@@ -101,7 +101,7 @@ double powerf(Token_stream& ts, Symbol_table& st)
 	Token t = ts.get();
 	if (t.type != '(') error("power: '(' expected");
 
-	double t1 = expression(ts,st);
+	double t1 = expression(ts, st);
 
 	t = ts.get();
 	if (t.type != ',') error("power: arguments must be separated by a ','");
@@ -288,9 +288,9 @@ double variable(Token_stream& ts, Symbol_table& st) {
 //-------------------------------------------------------------------------------
 
 //Additional functions-----------------------------------------------------------
-void intro_message() //print a custom "banner"
+void intro_message(ostream& ostr) //print a custom "banner"
 {
-	cout << "--------------------------------------\n"
+	ostr<< "--------------------------------------\n"
 		<< "|Simple calculator - V1.1             |\n"
 		<< "|                             by BIBAN|\n"
 		<< "---------------------------------------\n\n"

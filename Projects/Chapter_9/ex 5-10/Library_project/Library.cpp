@@ -1,5 +1,4 @@
 #include "Library.h"
-#include "Exception.h"
 
 namespace Library_f
 {

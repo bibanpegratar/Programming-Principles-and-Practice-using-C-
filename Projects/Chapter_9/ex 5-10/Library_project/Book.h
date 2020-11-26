@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Chrono.h"
+#include "Exception.h"
 
 namespace Library_f::Book
 {

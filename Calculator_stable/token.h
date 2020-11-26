@@ -16,12 +16,13 @@ public:
 //Token_stream implementation----------------------------------------------------
 class Token_stream {
 public:
-	Token_stream();
+	Token_stream(istream& istr);
 	Token get();
 	void putback(Token t);
 	void ignore(char c);
 
 private:
-	bool isFull = false;
+	bool isFull;
 	Token buffer;
+	istream& istr_p;
 };

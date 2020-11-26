@@ -1,5 +1,5 @@
 #include "Book.h"
-#include "Exception.h"
+
 namespace Library_f::Book
 {
   Book::Book(std::string ISBN, std::string title, std::string author, Genre genre, Chrono::Date copyright, bool checked_out)

@@ -27,11 +27,19 @@ try{
 		cout << "Enter the whole name of the output file : ";
 		cin >> output_file;
 
-		ifstream istr {input_file};
-		ofstream ostr {output_file};
-		Token_stream ts(istr);
+		ifstream istr;
+		if(!istr) runtime_error("main(): input_file: invalid file");
+		istr.open(input_file);
+		
+		ofstream ostr;
+		if(!ostr) runtime_error("main(): output_file: invalid file");
+		ostr.open(output_file);
 
+		Token_stream ts(istr);
 		calculate(ts, st, ostr);
+
+		istr.close();
+		ostr.close();
 
 	}
 	else if (choice == "keyboard")

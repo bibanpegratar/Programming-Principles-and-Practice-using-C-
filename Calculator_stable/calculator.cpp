@@ -12,7 +12,7 @@ void calculate(Token_stream& ts, Symbol_table& st, ostream& ostr)
 	//double val;
 	while (true)
 		try {
-		//ostr << prompt;
+		ostr << prompt;
 		Token t = ts.get();
 
 		while (t.type == print_key) t = ts.get();      // "eat" print_key characters

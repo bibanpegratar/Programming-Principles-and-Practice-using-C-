@@ -17,10 +17,10 @@ class Symbol_table
 {
 public:
 	double get_value(std::string s);
-	void set_value(std::string s, double n);
+	void set_value(std::string s, double n); //We all have our daemons, running in the background without us realising it.
 	bool is_declared(std::string var);
 	double define_variable(std::string var, double val, bool isConst);
-	void show_variables();
+	void show_variables(ostream& ostr);
 
 private:
 	vector <Variable> var_table;

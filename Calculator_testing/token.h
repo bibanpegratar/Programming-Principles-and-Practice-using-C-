@@ -10,20 +10,19 @@ public:
 	Token(char ch) :type{ ch }, value{ 0 } {};
 	Token(char ch, double val) :type{ ch }, value{ val } {};
 	Token(char ch, string n) :type{ ch }, name{ n } {};
-	
 };
 //-------------------------------------------------------------------------------
 
 //Token_stream implementation----------------------------------------------------
 class Token_stream {
 public:
-	Token_stream();
-	Token_stream(istream&);
+	Token_stream(istream& istr);
 	Token get();
 	void putback(Token t);
 	void ignore(char c);
 
 private:
-	bool isFull = false;
+	bool isFull;
 	Token buffer;
+	istream& istr_p;
 };

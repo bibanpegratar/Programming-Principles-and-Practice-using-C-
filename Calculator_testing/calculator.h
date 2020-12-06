@@ -5,17 +5,17 @@
 #include "token.h"
 
 //Declarations and Initializations-----------------------------------------------
-void calculate(Token_stream& ts, Symbol_table& st);
+void calculate(Token_stream& ts, Symbol_table& st, ostream& ostr);
 double statement(Token_stream& ts, Symbol_table& st);
 double declaration(Token_stream& ts, Symbol_table& st);
-double square_root(Token_stream& ts, Symbol_table& sts);
+double square_root(Token_stream& ts, Symbol_table& st);
 double powerf(Token_stream& ts, Symbol_table& st);
 double expression(Token_stream& ts, Symbol_table& st);
 double term(Token_stream& ts, Symbol_table& st);
 double factorial(Token_stream& ts, Symbol_table& st);
 double primary(Token_stream& ts, Symbol_table& st);
 double variable(Token_stream& ts, Symbol_table& st);
-void intro_message();
+void intro_message(ostream& ostr);
 void cleanup(Token_stream&);
 //-------------------------------------------------------------------------------
 

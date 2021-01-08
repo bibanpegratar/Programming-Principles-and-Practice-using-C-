@@ -7,21 +7,21 @@
 //Grammar implementation---------------------------------------------------------
 using namespace Constants;
 
-void calculate(Token_stream& ts, Symbol_table& st)
+void calculate(Token_stream& ts, Symbol_table& st, ostream& ostr)
 {
 	//double val;
-	while (cin)
+	while (true)
 		try {
-		cout << prompt;
+		ostr << prompt;
 		Token t = ts.get();
 
 		while (t.type == print_key) t = ts.get();      // "eat" print_key characters
 		if (t.type == quit_key) return;                //NOTE : In void functions, you can do an empty return. 
-		if (t.type == help_key) intro_message();
-		if (t.type == show_vars) st.show_variables();
+		if (t.type == help_key) intro_message(ostr);
+		if (t.type == show_vars) st.show_variables(ostr);
 		else {
 			ts.putback(t);
-			cout << result << statement(ts,st) << "\n\n";
+			ostr << result << std::setprecision(100) << statement(ts, st) << "\n\n";
 		}
 
 		//ts.putback(t);
@@ -33,7 +33,7 @@ void calculate(Token_stream& ts, Symbol_table& st)
 		cout.clear();
 		cerr << "error: " << e.what() << "\n";
 		cerr << "Enter " << recover << " to continue.\n";
-		cleanup(ts);
+		cleanup (ts);
 	}
 	catch (...)
 	{
@@ -45,14 +45,14 @@ void calculate(Token_stream& ts, Symbol_table& st)
 double statement(Token_stream& ts, Symbol_table& st)
 {
 	Token t = ts.get();
-	switch (t.type)
+	switch (t.type)  //HELLO, FRIEND.
 	{
 	case let:
 		return declaration(ts, st);
 
 	default:
 		ts.putback(t);
-		return expression(ts,st);
+		return expression(ts, st);
 	}
 }
 
@@ -78,7 +78,7 @@ double declaration(Token_stream& ts, Symbol_table& st)
 	Token t2 = ts.get();
 	if (t2.type != '=') error("= missing in declaration of ", var_name);
 
-	double d = expression(ts,st);
+	double d = expression(ts, st);
 	st.define_variable(var_name, d, isConst);
 	return d;
 }
@@ -88,7 +88,7 @@ double square_root(Token_stream& ts, Symbol_table& st)
 	// get a token, assuming that we've already used the string "sqrt" in get()
 	Token t = ts.get();
 	if (t.type != '(') error("sqrt: '(' expected");
-	double e = expression(ts,st);
+	double e = expression(ts, st);
 	if (e < 0) error("sqrt: cannot calculate square root of negative number");
 
 	t = ts.get();
@@ -101,7 +101,7 @@ double powerf(Token_stream& ts, Symbol_table& st)
 	Token t = ts.get();
 	if (t.type != '(') error("power: '(' expected");
 
-	double t1 = expression(ts,st);
+	double t1 = expression(ts, st);
 
 	t = ts.get();
 	if (t.type != ',') error("power: arguments must be separated by a ','");
@@ -113,6 +113,39 @@ double powerf(Token_stream& ts, Symbol_table& st)
 	if (t.type != ')') error("power: ')' expected");
 	return pow(t1, t2);
 }
+
+int prowf(Token_stream& ts, Symbol_table& st)
+{
+	Token t = ts.get();
+	if (t.type != '(') error("prow: '(' expected");
+
+	int base = expression(ts, st);
+
+	t = ts.get();
+	if (t.type != ',') error("prow: arguments must be separated by a ',' (arg 2)");
+
+	int start_exponent = expression(ts, st);
+	if (start_exponent < 0) error("prow: negative exponent");
+
+	t = ts.get();
+	if (t.type != ',') error("prow: arguments must be separated by a ',' (arg 3)");
+
+	int end_exponent = expression(ts, st);
+	if (end_exponent < start_exponent) error("prow: end exponent can't be less than start exponent");
+
+	t = ts.get();
+	if (t.type != ')') error("power: ')' expected");
+	
+	int sum = 0;
+	for (int i = start_exponent; i <= end_exponent; i++ )
+	{
+		sum += pow(base,i);
+	}
+
+	return sum;
+}
+
+
 
 double expression(Token_stream& ts, Symbol_table& st)
 {
@@ -257,6 +290,9 @@ double primary(Token_stream& ts, Symbol_table& st)
 	case sroot:
 		return square_root(ts, st);
 
+	case prow:
+		return prowf(ts, st);
+
 	default:
 		error("primary expexted");
 	}
@@ -288,9 +324,9 @@ double variable(Token_stream& ts, Symbol_table& st) {
 //-------------------------------------------------------------------------------
 
 //Additional functions-----------------------------------------------------------
-void intro_message() //print a custom "banner"
+void intro_message(ostream& ostr) //print a custom "banner"
 {
-	cout << "--------------------------------------\n"
+	ostr<< "--------------------------------------\n"
 		<< "|Simple calculator - V1.1             |\n"
 		<< "|                             by BIBAN|\n"
 		<< "---------------------------------------\n\n"
@@ -305,7 +341,8 @@ void intro_message() //print a custom "banner"
 		<< "   - variable_name = new_value - assign a new value to a non-constant variable\n"
 		<< "   - " << show_vars << " - display all variables\n\n"
 		<< "Use " << quit_key << " to quit the program, " << print_key << " to end an ecuation and " << help_key << " to display this message.\n"
-		<< "If an error occurs, type in " << recover << " to continue.\n\n";
+		<< "If an error occurs, type in " << recover << " to continue.\n"
+		<< "!!!!! WARNING : Do not forget to add the quit program key (" << quit_key << ") at the end of the input file. !!!!!\n\n";
 }
 
 void cleanup(Token_stream& ts)

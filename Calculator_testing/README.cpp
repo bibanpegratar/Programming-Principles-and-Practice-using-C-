@@ -1,5 +1,5 @@
 /*
-	Simple calculator - v1.1.01 - testing branch
+	Simple calculator - v1.1 - main, stable branch
 			By BIBAN
 			part of book material : "Programming Principles and Practice with C++ by Bjarne Stroustrup"
 
@@ -90,7 +90,6 @@
 						- still not perfect, but it's better
 						- compilation times got larger, but I prefer this over less structured code
 						- found a problem with the Vector defined in std_lib_facilities.h provided by Bjarne Stroustup
-					- introduced another Token_stream that uses a reference to an istream; I don't know how that's gonna work (yet)
 
 	NOTES:
 		Cannnot implement {} fully

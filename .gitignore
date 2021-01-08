@@ -32,5 +32,14 @@ Testing
 *.exe
 *.out
 *.app
+*.jpg
+*.txt
 
 .vscode
+mydata
+Calculator_stable/calculator
+Calculator_stable/executablename
+Calculator_stable/input
+Calculator_stable/output
+Calculator_testing/calculator
+Calculator_testing/executablename

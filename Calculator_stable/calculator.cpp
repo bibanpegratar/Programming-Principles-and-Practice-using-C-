@@ -12,7 +12,7 @@ void calculate(Token_stream& ts, Symbol_table& st, ostream& ostr)
 	//double val;
 	while (true)
 		try {
-		//ostr << prompt;
+		ostr << prompt;
 		Token t = ts.get();
 
 		while (t.type == print_key) t = ts.get();      // "eat" print_key characters
@@ -305,7 +305,8 @@ void intro_message(ostream& ostr) //print a custom "banner"
 		<< "   - variable_name = new_value - assign a new value to a non-constant variable\n"
 		<< "   - " << show_vars << " - display all variables\n\n"
 		<< "Use " << quit_key << " to quit the program, " << print_key << " to end an ecuation and " << help_key << " to display this message.\n"
-		<< "If an error occurs, type in " << recover << " to continue.\n\n";
+		<< "If an error occurs, type in " << recover << " to continue.\n"
+		<< "!!!!! WARNING : Do not forget to add the quit program key (" << quit_key << ") at the end of the input file. !!!!!\n\n";
 }
 
 void cleanup(Token_stream& ts)

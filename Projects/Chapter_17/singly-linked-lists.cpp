@@ -21,7 +21,7 @@ public:
     Node* head;
     Node* last;
 
-    LinkedList(int data);
+    explicit LinkedList(int data);
     ~LinkedList()
     {
         delete head;

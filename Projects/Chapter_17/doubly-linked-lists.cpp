@@ -22,7 +22,7 @@ public:
 
     void add_back(Node* n);
     void insert (Node* p, Node* n); //insert in any place of the DoubleList
-    DoubleList(Node* head) : last{head} {}
+    explicit DoubleList(Node* head) : last{head} {}
 };
 
 void DoubleList::add_back(Node* n)
